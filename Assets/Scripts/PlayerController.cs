@@ -1,4 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -6,15 +10,64 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody rb;
 
-    private void FixedUpdate()
+    private bool isMoving;
+    private bool isDead;
+
+    private Coroutine courotineMove;
+
+    private void Start()
     {
-        playerStats.pos = transform.position;
+        playerStats.Death += OnPlayerDeath;
+    }
 
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+    /// <summary>
+    /// Move the Player
+    /// </summary>
+    /// <param name="touchPress"></param>
+    /// <returns></returns>
+    private IEnumerator MovePlayer(Vector2 touchPress)
+    {
+        while(isMoving && !isDead)
+        {
+            playerStats.Position(transform.position);
 
-        Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput) * playerStats.speed;
+            Vector3 movement = new Vector3(touchPress.x, 0f, touchPress.y) * playerStats.speed;
+            rb.MovePosition(rb.position + movement * Time.deltaTime);
 
-        rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+            yield return null;
+        } 
+    }
+
+    /// <summary>
+    /// Arrow Key
+    /// </summary>
+    /// <param name="ctx"></param>
+    public void Move(InputAction.CallbackContext ctx)
+    {
+        if(ctx.performed && !isDead)
+        {
+            if(courotineMove != null)
+            {
+                StopCoroutine(courotineMove);
+            }
+
+            isMoving = true;
+
+            Vector2 touchPress = ctx.ReadValue<Vector2>();
+
+            courotineMove = StartCoroutine(MovePlayer(touchPress));
+        }
+        else if (ctx.canceled)
+        {
+            isMoving = false;
+        }
+    }
+
+    /// <summary>
+    /// Player Dead
+    /// </summary>
+    private void OnPlayerDeath()
+    {
+        isDead = true;
     }
 }
