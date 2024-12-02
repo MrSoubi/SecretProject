@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;
+    public PlayerStats playerStats;
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(target.position.x, transform.position.y, target.position.z);
+        transform.position = new Vector3(playerStats.pos.x, transform.position.y, playerStats.pos.z);
     }
 }
