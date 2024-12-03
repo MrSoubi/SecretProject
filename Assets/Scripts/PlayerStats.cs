@@ -1,32 +1,49 @@
 using UnityEngine;
-using UnityEngine.Events;
 using System;
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Player Stats")]
 public class PlayerStats : ScriptableObject
 {
-    public Vector3 pos;
+    [SerializeField] private Vector3 pos;
+    [SerializeField] private float health;
+    [SerializeField] private float speed;
 
-    public float health;
+    public event Action OnLooseHealth;
+    public event Action OnDeath;
+    public event Action OnWin;
 
-    public float speed;
-
-    public Action Death;
-
-    public void Position(Vector3 position)
+    public Vector3 Position
     {
-        pos = position;
+        get => pos;
+        set => pos = value;
+    }
+
+    public float Health
+    {
+        get => health;
+        set => health = Mathf.Clamp(value, 0, float.MaxValue);
+    }
+
+    public float Speed
+    {
+        get => speed;
+        set => speed = value;
     }
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
+        Health -= damage;
 
-        if(health <= 0)
+        OnLooseHealth?.Invoke();
+
+        if (health <= 0)
         {
-            health = 0;
-
-            Death?.Invoke();
+            OnDeath?.Invoke();
         }
+    }
+
+    public void Win()
+    {
+        OnWin?.Invoke();
     }
 }

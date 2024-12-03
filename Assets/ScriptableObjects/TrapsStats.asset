@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b005cce77620a184b9cad613882abb29, type: 3}
-  m_Name: PlayerStats
+  m_Script: {fileID: 11500000, guid: 0f4eeab5020244c488f5cd306f34ea27, type: 3}
+  m_Name: TrapsStats
   m_EditorClassIdentifier: 
-  pos: {x: 0, y: 1.5, z: 0}
-  health: 100
-  speed: 5
+  damage: 10

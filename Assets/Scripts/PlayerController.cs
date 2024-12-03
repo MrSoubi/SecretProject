@@ -1,23 +1,38 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerStats playerStats;
+    [Header("ScriptableObject")]
+    [SerializeField] private PlayerStats playerStats;
 
-    public Rigidbody rb;
+    [Header("References")]
+    [SerializeField] private Rigidbody rb;
 
-    private bool isMoving;
+    private Vector3 startPosition;
+
     private bool isDead;
+    private bool isMoving;
 
     private Coroutine courotineMove;
 
     private void Start()
     {
-        playerStats.Death += OnPlayerDeath;
+        startPosition = transform.position;
+        playerStats.Position = startPosition;
+    }
+
+    private void OnEnable()
+    {
+        playerStats.OnWin += OnPlayerWin;
+        playerStats.OnDeath += OnPlayerDead;
+    }
+
+    private void OnDisable()
+    {
+        playerStats.OnWin -= OnPlayerWin;
+        playerStats.OnDeath -= OnPlayerDead;
     }
 
     /// <summary>
@@ -29,10 +44,10 @@ public class PlayerController : MonoBehaviour
     {
         while(isMoving && !isDead)
         {
-            playerStats.Position(transform.position);
-
-            Vector3 movement = new Vector3(touchPress.x, 0f, touchPress.y) * playerStats.speed;
+            Vector3 movement = new Vector3(touchPress.x, 0f, touchPress.y) * playerStats.Speed;
             rb.MovePosition(rb.position + movement * Time.deltaTime);
+
+            playerStats.Position = transform.position;
 
             yield return null;
         } 
@@ -53,9 +68,9 @@ public class PlayerController : MonoBehaviour
 
             isMoving = true;
 
-            Vector2 touchPress = ctx.ReadValue<Vector2>();
+            Vector2 inputDirection = ctx.ReadValue<Vector2>();
 
-            courotineMove = StartCoroutine(MovePlayer(touchPress));
+            courotineMove = StartCoroutine(MovePlayer(inputDirection));
         }
         else if (ctx.canceled)
         {
@@ -64,9 +79,19 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// Player Win
+    /// </summary>
+    private void OnPlayerWin()
+    {
+        transform.position = startPosition;
+
+        playerStats.Position = transform.position;
+    }
+
+    /// <summary>
     /// Player Dead
     /// </summary>
-    private void OnPlayerDeath()
+    private void OnPlayerDead()
     {
         isDead = true;
     }
