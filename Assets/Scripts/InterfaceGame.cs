@@ -21,13 +21,13 @@ public class InterfaceGame : MonoBehaviour
     private void OnEnable()
     {
         playerStats.OnLooseHealth += UpdateUI;
-        playerStats.OnDeath += GameOver;
+        playerStats.OnDeath += Restart;
     }
 
     private void OnDisable()
     {
         playerStats.OnLooseHealth -= UpdateUI;
-        playerStats.OnDeath -= GameOver;
+        playerStats.OnDeath -= Restart;
     }
 
     /// <summary>
