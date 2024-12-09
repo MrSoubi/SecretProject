@@ -5,7 +5,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("ScriptableObject")]
     [SerializeField] private PlayerStats playerStats;
-    [SerializeField] private MapsInfos mapInfos;
 
     [Header("Traps")]
     [SerializeField] private GameObject trapPrefab;
@@ -39,9 +38,6 @@ public class GameManager : MonoBehaviour
         playerStats.Position = posPlayer;
         playerStats.Health = healthPlayer;
         playerStats.Speed = speedPlayer;
-
-        mapInfos.Map = null;
-        mapInfos.Bounds = new Bounds(Vector3.zero, Vector3.zero);
     }
 
     /// <summary>
