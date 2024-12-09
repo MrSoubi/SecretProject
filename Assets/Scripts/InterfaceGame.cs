@@ -25,7 +25,7 @@ public class InterfaceGame : MonoBehaviour
         for(int i = 0; i < playerStats.Health; i++){
             var gameObject = Instantiate(_gameLife, _gameLifePosition.position, Quaternion.identity, _lifes);
 
-            gameObject.transform.position = new Vector3(_gameLifePosition.position.x + i*-100, _gameLifePosition.position.y, _gameLifePosition.position.z);
+            gameObject.transform.position = new Vector3(_gameLifePosition.position.x + i*-150, _gameLifePosition.position.y, _gameLifePosition.position.z);
             gameLifeList.Add(gameObject);
         }
         sliderHealth.value = playerStats.Health;
