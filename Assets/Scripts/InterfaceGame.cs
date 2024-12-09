@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using System.Collections.Generic;
 public class InterfaceGame : MonoBehaviour
 {
     [Header("ScriptableObject")]
@@ -13,9 +13,21 @@ public class InterfaceGame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textHealth;
     [SerializeField] private GameObject panelGameOver;
 
+    [SerializeField] private GameObject _gameLife;
+    [SerializeField] private Transform _gameLifePosition;
+
+    [SerializeField] private Transform _lifes;
+
+    private List<GameObject> gameLifeList = new List<GameObject>();
     private void Start()
     {
         sliderHealth.maxValue = playerStats.Health;
+        for(int i = 0; i < playerStats.Health; i++){
+            var gameObject = Instantiate(_gameLife, _gameLifePosition.position, Quaternion.identity, _lifes);
+
+            gameObject.transform.position = new Vector3(_gameLifePosition.position.x + i*-100, _gameLifePosition.position.y, _gameLifePosition.position.z);
+            gameLifeList.Add(gameObject);
+        }
     }
 
     private void OnEnable()
@@ -37,6 +49,9 @@ public class InterfaceGame : MonoBehaviour
     {
         sliderHealth.value = playerStats.Health;
         textHealth.text = playerStats.Health.ToString();
+        Destroy(gameLifeList[gameLifeList.Count-1]);
+        gameLifeList.Remove(gameLifeList[gameLifeList.Count-1]);
+        
     }
 
     /// <summary>

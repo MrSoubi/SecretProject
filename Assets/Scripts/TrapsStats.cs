@@ -3,9 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TrapsStats", menuName = "Traps Stats")]
 public class TrapsStats : ScriptableObject
 {
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
 
-    public float Damage
+    public int Damage
     {
         get => damage;
     }

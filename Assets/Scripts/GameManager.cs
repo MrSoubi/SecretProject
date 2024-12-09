@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> traps = new List<GameObject>();
 
     private Vector3 posPlayer;
-    private float healthPlayer;
+    private int healthPlayer;
     private float speedPlayer;
 
     private void Start()

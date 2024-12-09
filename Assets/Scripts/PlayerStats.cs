@@ -5,7 +5,7 @@ using System;
 public class PlayerStats : ScriptableObject
 {
     [SerializeField] private Vector3 pos;
-    [SerializeField] private float health;
+    [SerializeField] private int health;
     [SerializeField] private float speed;
 
     public event Action OnLooseHealth;
@@ -18,10 +18,10 @@ public class PlayerStats : ScriptableObject
         set => pos = value;
     }
 
-    public float Health
+    public int Health
     {
         get => health;
-        set => health = Mathf.Clamp(value, 0, float.MaxValue);
+        set => health = value;
     }
 
     public float Speed
@@ -30,7 +30,7 @@ public class PlayerStats : ScriptableObject
         set => speed = value;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         Health -= damage;
 

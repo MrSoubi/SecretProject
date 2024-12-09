@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4eeab5020244c488f5cd306f34ea27, type: 3}
   m_Name: TrapsStats
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 1
