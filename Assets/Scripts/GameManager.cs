@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int numberOfTraps;
     [SerializeField] private float spawnRadius;
     [SerializeField] private LayerMask trapLayer;
+    [SerializeField] private BoxCollider mapCollider;
 
     private List<GameObject> traps = new List<GameObject>();
 
@@ -69,7 +70,7 @@ public class GameManager : MonoBehaviour
 
             if (!IsPositionOccupied(randomPosition))
             {
-                GameObject trap = Instantiate(trapPrefab, randomPosition, Quaternion.identity, mapInfos.Map.transform);
+                GameObject trap = Instantiate(trapPrefab, randomPosition, Quaternion.identity);
                 traps.Add(trap);
 
                 spawnedTraps++;
@@ -86,10 +87,8 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private Vector3 GetRandomPositionInBox(Vector3 trapSize)
     {
-        Bounds bounds = mapInfos.Bounds;
-
-        float x = Random.Range(bounds.min.x + trapSize.x / 2, bounds.max.x - trapSize.x / 2);
-        float z = Random.Range(bounds.min.z + trapSize.z / 2, bounds.max.z - trapSize.z / 2);
+        float x = Random.Range(mapCollider.bounds.min.x + trapSize.x / 2, mapCollider.bounds.max.x - trapSize.x / 2);
+        float z = Random.Range(mapCollider.bounds.min.z + trapSize.z / 2, mapCollider.bounds.max.z - trapSize.z / 2);
 
         return new Vector3(x, 0.5f, z);
     }

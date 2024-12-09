@@ -42,8 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 13
-  m_BakeOnSceneLoad: 0
+  serializedVersion: 12
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -815,6 +814,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5083491935353455427, guid: d77c0eeac10fe144fb457c48a2008c9d, type: 3}
   m_PrefabInstance: {fileID: 269572409733383767}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1882888618 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 1566539143929333651, guid: d77c0eeac10fe144fb457c48a2008c9d, type: 3}
+  m_PrefabInstance: {fileID: 269572409733383767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2011121052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,6 +1064,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1837506217322297823, guid: 3a99d578aaea4b34181e5a122a84b343, type: 3}
+      propertyPath: mapCollider
+      value: 
+      objectReference: {fileID: 1882888618}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
