@@ -28,6 +28,8 @@ public class InterfaceGame : MonoBehaviour
             gameObject.transform.position = new Vector3(_gameLifePosition.position.x + i*-100, _gameLifePosition.position.y, _gameLifePosition.position.z);
             gameLifeList.Add(gameObject);
         }
+        sliderHealth.value = playerStats.Health;
+        textHealth.text = playerStats.Health.ToString();
     }
 
     private void OnEnable()
